@@ -2043,6 +2043,8 @@ int32_t asm330lhhxg1_data_ready_mode_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_DRDY_LATCHED;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2101,6 +2103,7 @@ int32_t asm330lhhxg1_reset_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl3_c.sw_reset;
 
+exit:
   return ret;
 }
 
@@ -2146,6 +2149,7 @@ int32_t asm330lhhxg1_auto_increment_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl3_c.if_inc;
 
+exit:
   return ret;
 }
 
@@ -2189,6 +2193,7 @@ int32_t asm330lhhxg1_boot_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl3_c.boot;
 
+exit:
   return ret;
 }
 
@@ -2249,6 +2254,8 @@ int32_t asm330lhhxg1_xl_self_test_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_XL_ST_DISABLE;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2307,6 +2314,8 @@ int32_t asm330lhhxg1_gy_self_test_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_GY_ST_DISABLE;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2364,6 +2373,7 @@ int32_t asm330lhhxg1_xl_filter_lp2_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl1_xl.lpf2_xl_en;
 
+exit:
   return ret;
 }
 
@@ -2409,6 +2419,7 @@ int32_t asm330lhhxg1_gy_filter_lp1_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl4_c.lpf1_sel_g;
 
+exit:
   return ret;
 }
 
@@ -2455,6 +2466,7 @@ int32_t asm330lhhxg1_filter_settling_mask_get(const stmdev_ctx_t *ctx,
 
   *val = ctrl4_c.drdy_mask;
 
+exit:
   return ret;
 }
 
@@ -2528,6 +2540,8 @@ int32_t asm330lhhxg1_gy_lp1_bandwidth_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_ULTRA_LIGHT;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2572,6 +2586,7 @@ int32_t asm330lhhxg1_xl_lp2_on_6d_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl8_xl.low_pass_on_6d;
 
+exit:
   return ret;
 }
 
@@ -2696,6 +2711,8 @@ int32_t asm330lhhxg1_xl_hp_path_on_out_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_HP_PATH_DISABLE_ON_OUT;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2744,6 +2761,7 @@ int32_t asm330lhhxg1_xl_fast_settling_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   *val = ctrl8_xl.fastsettl_mode_xl;
 
+exit:
   return ret;
 }
 
@@ -2802,6 +2820,8 @@ int32_t asm330lhhxg1_xl_hp_path_internal_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_USE_SLOPE;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2869,6 +2889,8 @@ int32_t asm330lhhxg1_gy_hp_path_internal_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_HP_FILTER_NONE;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2937,6 +2959,8 @@ int32_t asm330lhhxg1_sdo_sa0_mode_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_PULL_UP_DISC;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -2993,6 +3017,8 @@ int32_t asm330lhhxg1_int1_mode_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_PULL_DOWN_CONNECT;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -3046,6 +3072,8 @@ int32_t asm330lhhxg1_spi_mode_get(const stmdev_ctx_t *ctx, asm330lhhxg1_sim_t *v
       *val = ASM330LHHXG1_SPI_4_WIRE;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -3101,6 +3129,8 @@ int32_t asm330lhhxg1_i2c_interface_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_I2C_ENABLE;
       break;
   }
+
+exit:
   return ret;
 }
 
@@ -3181,6 +3211,8 @@ int32_t asm330lhhxg1_i3c_disable_get(const stmdev_ctx_t *ctx,
       *val = ASM330LHHXG1_I3C_DISABLE;
       break;
   }
+
+exit:
   return ret;
 }
 
