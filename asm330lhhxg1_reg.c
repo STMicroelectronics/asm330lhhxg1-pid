@@ -7781,14 +7781,16 @@ int32_t asm330lhhxg1_sh_pin_mode_get(const stmdev_ctx_t *ctx,
 
   switch (master_config.shub_pu_en)
   {
-    case ASM330LHHXG1_EXT_PULL_UP:
-      *val = ASM330LHHXG1_EXT_PULL_UP;
+    case 0:
+      *val = ASM330LHHXG1_INTERNAL_PULL_UP_OFF;
       break;
-    case ASM330LHHXG1_INTERNAL_PULL_UP:
-      *val = ASM330LHHXG1_INTERNAL_PULL_UP;
+
+    case 1:
+      *val = ASM330LHHXG1_INTERNAL_PULL_UP_ON;
       break;
+
     default:
-      *val = ASM330LHHXG1_EXT_PULL_UP;
+      *val = ASM330LHHXG1_INTERNAL_PULL_UP_OFF;
       break;
   }
   return ret;
