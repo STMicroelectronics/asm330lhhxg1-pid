@@ -6163,12 +6163,11 @@ int32_t asm330lhhxg1_mag_soft_iron_set(const stmdev_ctx_t *ctx, uint16_t *val)
   buff[5] = (uint8_t)(val[2] / 256U);
   buff[4] = (uint8_t)(val[2] - (buff[5] * 256U));
   buff[7] = (uint8_t)(val[3] / 256U);
-  buff[6] = (uint8_t)(val[3] - (buff[1] * 256U));
+  buff[6] = (uint8_t)(val[3] - (buff[7] * 256U));
   buff[9] = (uint8_t)(val[4] / 256U);
-  buff[8] = (uint8_t)(val[4] - (buff[3] * 256U));
+  buff[8] = (uint8_t)(val[4] - (buff[9] * 256U));
   buff[11] = (uint8_t)(val[5] / 256U);
-  buff[10] = (uint8_t)(val[5] - (buff[5] * 256U));
-
+  buff[10] = (uint8_t)(val[5] - (buff[11] * 256U));
   i = 0x00U;
   ret = asm330lhhxg1_ln_pg_write_byte(ctx, ASM330LHHXG1_MAG_SI_XX_L, &buff[i]);
   if (ret == 0)
@@ -6302,24 +6301,19 @@ int32_t asm330lhhxg1_mag_soft_iron_get(const stmdev_ctx_t *ctx, uint16_t *val)
   }
   if (ret == 0)
   {
-    i++;
-    ret = asm330lhhxg1_ln_pg_read_byte(ctx, ASM330LHHXG1_MAG_SI_ZZ_H, &buff[i]);
+    val[0] = buff[1];
+    val[0] = (val[0] * 256U) +  buff[0];
+    val[1] = buff[3];
+    val[1] = (val[1] * 256U) +  buff[2];
+    val[2] = buff[5];
+    val[2] = (val[2] * 256U) +  buff[4];
+    val[3] = buff[7];
+    val[3] = (val[3] * 256U) +  buff[6];
+    val[4] = buff[9];
+    val[4] = (val[4] * 256U) +  buff[8];
+    val[5] = buff[11];
+    val[5] = (val[5] * 256U) +  buff[10];
   }
-
-  if (ret != 0) { return ret; }
-
-  val[0] = buff[1];
-  val[0] = (val[0] * 256U) +  buff[0];
-  val[1] = buff[3];
-  val[1] = (val[1] * 256U) +  buff[2];
-  val[2] = buff[5];
-  val[2] = (val[2] * 256U) +  buff[4];
-  val[3] = buff[7];
-  val[3] = (val[3] * 256U) +  buff[6];
-  val[4] = buff[9];
-  val[4] = (val[4] * 256U) +  buff[8];
-  val[5] = buff[11];
-  val[6] = (val[5] * 256U) +  buff[10];
 
   return ret;
 }
