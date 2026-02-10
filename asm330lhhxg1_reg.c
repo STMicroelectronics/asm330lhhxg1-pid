@@ -8142,8 +8142,9 @@ int32_t asm330lhhxg1_sh_data_rate_get(const stmdev_ctx_t *ctx,
     case ASM330LHHXG1_SH_ODR_26Hz:
       *val = ASM330LHHXG1_SH_ODR_26Hz;
       break;
-    case ASM330LHHXG1_SH_ODR_13Hz:
-      *val = ASM330LHHXG1_SH_ODR_13Hz;
+
+    case 0x03U:
+      *val = ASM330LHHXG1_SH_ODR_12Hz5;
       break;
     default:
       *val = ASM330LHHXG1_SH_ODR_104Hz;

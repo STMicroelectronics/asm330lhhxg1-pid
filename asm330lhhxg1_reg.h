@@ -3413,7 +3413,7 @@ typedef enum
   ASM330LHHXG1_SH_ODR_104Hz = 0,
   ASM330LHHXG1_SH_ODR_52Hz  = 1,
   ASM330LHHXG1_SH_ODR_26Hz  = 2,
-  ASM330LHHXG1_SH_ODR_13Hz  = 3,
+  ASM330LHHXG1_SH_ODR_12Hz5 = 3,
 } asm330lhhxg1_shub_odr_t;
 int32_t asm330lhhxg1_sh_data_rate_set(const stmdev_ctx_t *ctx,
                                     asm330lhhxg1_shub_odr_t val);
