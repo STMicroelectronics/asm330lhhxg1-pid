@@ -1070,51 +1070,64 @@ int32_t asm330lhhxg1_gy_power_mode_get(const stmdev_ctx_t *ctx,
   *
   */
 int32_t asm330lhhxg1_all_sources_get(const stmdev_ctx_t *ctx,
-                                   asm330lhhxg1_all_sources_t *val)
+                                     asm330lhhxg1_all_sources_t *val)
 {
   int32_t ret;
 
   ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_ALL_INT_SRC,
-                            (uint8_t *)&val->all_int_src, 1);
+                              (uint8_t *)&val->all_int_src, 1);
+
   if (ret == 0)
   {
     ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_WAKE_UP_SRC,
-                              (uint8_t *)&val->wake_up_src, 1);
+                                (uint8_t *)&val->wake_up_src, 1);
   }
+
   if (ret == 0)
   {
     ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_D6D_SRC,
-                              (uint8_t *)&val->d6d_src, 1);
+                                (uint8_t *)&val->d6d_src, 1);
   }
+
   if (ret == 0)
   {
     ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_STATUS_REG,
-                              (uint8_t *)&val->status_reg, 1);
+                                (uint8_t *)&val->status_reg, 1);
   }
+
   if (ret == 0)
   {
-    ret = asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_EMBEDDED_FUNC_BANK);
+    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_MLC_STATUS_MAINPAGE,
+                                (uint8_t *)&val->mlc_status, 1);
   }
-  if (ret == 0)
+
+  if (ret != 0)
   {
-    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_EMB_FUNC_STATUS,
+    return ret;
+  }
+
+  ret = asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_EMBEDDED_FUNC_BANK);
+  if (ret != 0)
+  {
+    goto exit;
+  }
+
+  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_EMB_FUNC_STATUS,
                               (uint8_t *)&val->emb_func_status, 1);
-  }
-  if (ret == 0)
+  if (ret != 0)
   {
-    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_FSM_STATUS_A,
+    goto exit;
+  }
+  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_FSM_STATUS_A,
                               (uint8_t *)&val->fsm_status_a, 1);
-  }
-  if (ret == 0)
+  if (ret != 0)
   {
-    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_FSM_STATUS_B,
+    goto exit;
+  }
+  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_FSM_STATUS_B,
                               (uint8_t *)&val->fsm_status_b, 1);
-  }
-  if (ret == 0)
-  {
-    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_MLC_STATUS,
-                              (uint8_t *)&val->mlc_status, 1);
-  }
+
+exit:
   ret += asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_USER_BANK);
 
   return ret;
