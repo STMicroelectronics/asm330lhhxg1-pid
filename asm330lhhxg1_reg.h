@@ -915,7 +915,7 @@ typedef struct
 #define ASM330LHHXG1_INTERNAL_FREQ_FINE           0x63U
 typedef struct
 {
-  uint8_t freq_fine                : 8;
+  int8_t freq_fine                 : 8;
 } asm330lhhxg1_internal_freq_fine_t;
 
 #define ASM330LHHXG1_X_OFS_USR                    0x73U
@@ -2747,8 +2747,8 @@ int32_t asm330lhhxg1_acceleration_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
 
 int32_t asm330lhhxg1_fifo_out_raw_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
-int32_t asm330lhhxg1_odr_cal_reg_set(const stmdev_ctx_t *ctx, uint8_t val);
-int32_t asm330lhhxg1_odr_cal_reg_get(const stmdev_ctx_t *ctx, uint8_t *val);
+int32_t asm330lhhxg1_odr_cal_reg_set(const stmdev_ctx_t *ctx, int8_t val);
+int32_t asm330lhhxg1_odr_cal_reg_get(const stmdev_ctx_t *ctx, int8_t *val);
 
 typedef enum
 {

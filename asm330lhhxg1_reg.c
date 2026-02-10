@@ -1649,18 +1649,18 @@ int32_t asm330lhhxg1_fifo_out_raw_get(const stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_odr_cal_reg_set(const stmdev_ctx_t *ctx, uint8_t val)
+int32_t asm330lhhxg1_odr_cal_reg_set(const stmdev_ctx_t *ctx, int8_t val)
 {
   asm330lhhxg1_internal_freq_fine_t internal_freq_fine;
   int32_t ret;
 
   ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_INTERNAL_FREQ_FINE,
-                            (uint8_t *)&internal_freq_fine, 1);
+                              (uint8_t *)&internal_freq_fine, 1);
   if (ret == 0)
   {
-    internal_freq_fine.freq_fine = (uint8_t)val;
+    internal_freq_fine.freq_fine = val;
     ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_INTERNAL_FREQ_FINE,
-                               (uint8_t *)&internal_freq_fine, 1);
+                                 (uint8_t *)&internal_freq_fine, 1);
   }
   return ret;
 }
@@ -1675,7 +1675,7 @@ int32_t asm330lhhxg1_odr_cal_reg_set(const stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_odr_cal_reg_get(const stmdev_ctx_t *ctx, uint8_t *val)
+int32_t asm330lhhxg1_odr_cal_reg_get(const stmdev_ctx_t *ctx, int8_t *val)
 {
   asm330lhhxg1_internal_freq_fine_t internal_freq_fine;
   int32_t ret;
