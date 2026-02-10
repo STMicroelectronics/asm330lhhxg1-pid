@@ -1225,7 +1225,8 @@ int32_t asm330lhhxg1_temp_flag_data_ready_get(const stmdev_ctx_t *ctx, uint8_t *
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_xl_usr_offset_x_set(const stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t asm330lhhxg1_xl_usr_offset_x_set(const stmdev_ctx_t *ctx,
+                                         int8_t *buff)
 {
   int32_t ret;
   ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_X_OFS_USR, buff, 1);
@@ -1242,7 +1243,8 @@ int32_t asm330lhhxg1_xl_usr_offset_x_set(const stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_xl_usr_offset_x_get(const stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t asm330lhhxg1_xl_usr_offset_x_get(const stmdev_ctx_t *ctx,
+                                         int8_t *buff)
 {
   int32_t ret;
   ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_X_OFS_USR, buff, 1);
@@ -1259,7 +1261,8 @@ int32_t asm330lhhxg1_xl_usr_offset_x_get(const stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_xl_usr_offset_y_set(const stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t asm330lhhxg1_xl_usr_offset_y_set(const stmdev_ctx_t *ctx,
+                                         int8_t *buff)
 {
   int32_t ret;
   ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_Y_OFS_USR, buff, 1);
@@ -1276,7 +1279,8 @@ int32_t asm330lhhxg1_xl_usr_offset_y_set(const stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_xl_usr_offset_y_get(const stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t asm330lhhxg1_xl_usr_offset_y_get(const stmdev_ctx_t *ctx,
+                                         int8_t *buff)
 {
   int32_t ret;
   ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_Y_OFS_USR, buff, 1);
@@ -1293,7 +1297,8 @@ int32_t asm330lhhxg1_xl_usr_offset_y_get(const stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_xl_usr_offset_z_set(const stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t asm330lhhxg1_xl_usr_offset_z_set(const stmdev_ctx_t *ctx,
+                                         int8_t *buff)
 {
   int32_t ret;
   ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_Z_OFS_USR, buff, 1);
@@ -1310,7 +1315,8 @@ int32_t asm330lhhxg1_xl_usr_offset_z_set(const stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t asm330lhhxg1_xl_usr_offset_z_get(const stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t asm330lhhxg1_xl_usr_offset_z_get(const stmdev_ctx_t *ctx,
+                                         int8_t *buff)
 {
   int32_t ret;
   ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_Z_OFS_USR, buff, 1);
