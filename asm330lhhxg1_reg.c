@@ -1762,52 +1762,9 @@ int32_t asm330lhhxg1_mem_bank_get(const stmdev_ctx_t *ctx,
   *
   */
 int32_t asm330lhhxg1_ln_pg_write_byte(const stmdev_ctx_t *ctx, uint16_t add,
-                                    uint8_t *val)
+                                      uint8_t *val)
 {
-  asm330lhhxg1_page_rw_t page_rw;
-  asm330lhhxg1_page_sel_t page_sel;
-  asm330lhhxg1_page_address_t page_address;
-  int32_t ret;
-
-  ret = asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_EMBEDDED_FUNC_BANK);
-  if (ret != 0) { goto exit; }
-
-  /* set page write */
-  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_PAGE_RW, (uint8_t *)&page_rw, 1);
-  if (ret != 0) { goto exit; }
-  page_rw.page_rw = 0x02U; /* page_write enable */
-  ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_PAGE_RW, (uint8_t *)&page_rw, 1);
-  if (ret != 0) { goto exit; }
-
-  /* select page */
-  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_PAGE_SEL, (uint8_t *)&page_sel, 1);
-  if (ret != 0) { goto exit; }
-  page_sel.page_sel = (uint8_t)((add / 256U) & 0x0FU);
-  page_sel.not_used_01 = 1;
-  ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_PAGE_SEL,
-                             (uint8_t *)&page_sel, 1);
-  if (ret != 0) { goto exit; }
-
-  /* set page addr */
-  page_address.page_addr = (uint8_t)(add - (page_sel.page_sel * 256U));
-  ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_PAGE_ADDRESS,
-                             (uint8_t *)&page_address, 1);
-  if (ret != 0) { goto exit; }
-
-  /* write */
-  ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_PAGE_VALUE, val, 1);
-  if (ret != 0) { goto exit; }
-
-  /* unset page write */
-  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_PAGE_RW, (uint8_t *)&page_rw, 1);
-  if (ret != 0) { goto exit; }
-  page_rw.page_rw = 0x00; /* page_write disable */
-  ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_PAGE_RW, (uint8_t *)&page_rw, 1);
-
-exit:
-  ret += asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_USER_BANK);
-
-  return ret;
+  return asm330lhhxg1_ln_pg_write(ctx, add, val, 1);
 }
 
 /**
