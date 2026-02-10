@@ -235,18 +235,19 @@ int32_t asm330lhhxg1_xl_full_scale_get(const stmdev_ctx_t *ctx,
   *
   */
 int32_t asm330lhhxg1_xl_data_rate_set(const stmdev_ctx_t *ctx,
-                                    asm330lhhxg1_odr_xl_t val)
+                                      asm330lhhxg1_odr_xl_t val)
 {
   asm330lhhxg1_odr_xl_t odr_xl =  val;
   asm330lhhxg1_emb_fsm_enable_t fsm_enable;
   asm330lhhxg1_fsm_odr_t fsm_odr;
-  asm330lhhxg1_ctrl1_xl_t ctrl1_xl;
-  asm330lhhxg1_mlc_odr_t mlc_odr;
   uint8_t mlc_enable;
-  int32_t ret;
+  asm330lhhxg1_mlc_odr_t mlc_odr;
+  asm330lhhxg1_ctrl1_xl_t ctrl1_xl;
+  int32_t ret = 0;
 
   /* Check the Finite State Machine data rate constraints */
   ret =  asm330lhhxg1_fsm_enable_get(ctx, &fsm_enable);
+
   if (ret == 0)
   {
     if ((fsm_enable.fsm_enable_a.fsm1_en  |
@@ -266,92 +267,72 @@ int32_t asm330lhhxg1_xl_data_rate_set(const stmdev_ctx_t *ctx,
          fsm_enable.fsm_enable_b.fsm15_en |
          fsm_enable.fsm_enable_b.fsm16_en) == PROPERTY_ENABLE)
     {
-
       ret =  asm330lhhxg1_fsm_data_rate_get(ctx, &fsm_odr);
+
       if (ret == 0)
       {
         switch (fsm_odr)
         {
           case ASM330LHHXG1_ODR_FSM_12Hz5:
-
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_12Hz5;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_FSM_26Hz:
-
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_26Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_12Hz5)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_12Hz5)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_26Hz;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_FSM_52Hz:
-
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_12Hz5)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_12Hz5)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_26Hz)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_26Hz)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_52Hz;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_FSM_104Hz:
-
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_12Hz5)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_12Hz5)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_26Hz)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_26Hz)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_52Hz)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_52Hz)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
-            break;
-          default:
-            odr_xl = val;
             break;
         }
       }
@@ -360,95 +341,79 @@ int32_t asm330lhhxg1_xl_data_rate_set(const stmdev_ctx_t *ctx,
 
   /* Check the Machine Learning Core data rate constraints */
   mlc_enable = PROPERTY_DISABLE;
+
   if (ret == 0)
   {
-    ret = asm330lhhxg1_mlc_get(ctx, &mlc_enable);
+    ret =  asm330lhhxg1_mlc_get(ctx, &mlc_enable);
+
     if (mlc_enable == PROPERTY_ENABLE)
     {
+      ret +=  asm330lhhxg1_mlc_data_rate_get(ctx, &mlc_odr);
 
-      ret += asm330lhhxg1_mlc_data_rate_get(ctx, &mlc_odr);
       if (ret == 0)
       {
         switch (mlc_odr)
         {
           case ASM330LHHXG1_ODR_PRGS_12Hz5:
-
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_12Hz5;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_PRGS_26Hz:
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_26Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_12Hz5)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_12Hz5)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_26Hz;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_PRGS_52Hz:
-
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_12Hz5)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_12Hz5)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_26Hz)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_26Hz)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_52Hz;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_PRGS_104Hz:
-            if (val == ASM330LHHXG1_XL_ODR_OFF)
+            if (odr_xl == ASM330LHHXG1_XL_ODR_OFF)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_12Hz5)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_12Hz5)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_26Hz)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_26Hz)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_XL_ODR_52Hz)
+
+            else if (odr_xl == ASM330LHHXG1_XL_ODR_52Hz)
             {
               odr_xl = ASM330LHHXG1_XL_ODR_104Hz;
+            }
 
-            }
-            else
-            {
-              odr_xl = val;
-            }
-            break;
-          default:
-            odr_xl = val;
             break;
         }
       }
@@ -457,14 +422,17 @@ int32_t asm330lhhxg1_xl_data_rate_set(const stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_CTRL1_XL, (uint8_t *)&ctrl1_xl, 1);
+    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_CTRL1_XL,
+                                (uint8_t *)&ctrl1_xl, 1);
   }
+
   if (ret == 0)
   {
     ctrl1_xl.odr_xl = (uint8_t)odr_xl;
     ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_CTRL1_XL,
-                               (uint8_t *)&ctrl1_xl, 1);
+                                 (uint8_t *)&ctrl1_xl, 1);
   }
+
   return ret;
 }
 
@@ -477,56 +445,72 @@ int32_t asm330lhhxg1_xl_data_rate_set(const stmdev_ctx_t *ctx,
   *
   */
 int32_t asm330lhhxg1_xl_data_rate_get(const stmdev_ctx_t *ctx,
-                                    asm330lhhxg1_odr_xl_t *val)
+                                      asm330lhhxg1_odr_xl_t *val)
 {
   asm330lhhxg1_ctrl1_xl_t ctrl1_xl;
   int32_t ret;
-
-  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_CTRL1_XL, (uint8_t *)&ctrl1_xl, 1);
-  if (ret != 0) { return ret; }
+  ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_CTRL1_XL,
+                              (uint8_t *)&ctrl1_xl, 1);
+  if (ret != 0)
+  {
+    return ret;
+  }
 
   switch (ctrl1_xl.odr_xl)
   {
     case ASM330LHHXG1_XL_ODR_OFF:
       *val = ASM330LHHXG1_XL_ODR_OFF;
       break;
+
     case ASM330LHHXG1_XL_ODR_12Hz5:
       *val = ASM330LHHXG1_XL_ODR_12Hz5;
       break;
+
     case ASM330LHHXG1_XL_ODR_26Hz:
       *val = ASM330LHHXG1_XL_ODR_26Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_52Hz:
       *val = ASM330LHHXG1_XL_ODR_52Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_104Hz:
       *val = ASM330LHHXG1_XL_ODR_104Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_208Hz:
       *val = ASM330LHHXG1_XL_ODR_208Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_417Hz:
       *val = ASM330LHHXG1_XL_ODR_417Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_833Hz:
       *val = ASM330LHHXG1_XL_ODR_833Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_1667Hz:
       *val = ASM330LHHXG1_XL_ODR_1667Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_3333Hz:
       *val = ASM330LHHXG1_XL_ODR_3333Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_6667Hz:
       *val = ASM330LHHXG1_XL_ODR_6667Hz;
       break;
+
     case ASM330LHHXG1_XL_ODR_1Hz6:
       *val = ASM330LHHXG1_XL_ODR_1Hz6;
       break;
+
     default:
       *val = ASM330LHHXG1_XL_ODR_OFF;
       break;
   }
+
   return ret;
 }
 
@@ -606,18 +590,19 @@ int32_t asm330lhhxg1_gy_full_scale_get(const stmdev_ctx_t *ctx,
   *
   */
 int32_t asm330lhhxg1_gy_data_rate_set(const stmdev_ctx_t *ctx,
-                                    asm330lhhxg1_odr_g_t val)
+                                      asm330lhhxg1_odr_g_t val)
 {
   asm330lhhxg1_odr_g_t odr_gy =  val;
   asm330lhhxg1_emb_fsm_enable_t fsm_enable;
   asm330lhhxg1_fsm_odr_t fsm_odr;
-  asm330lhhxg1_ctrl2_g_t ctrl2_g;
-  asm330lhhxg1_mlc_odr_t mlc_odr;
   uint8_t mlc_enable;
-  int32_t ret;
+  asm330lhhxg1_mlc_odr_t mlc_odr;
+  asm330lhhxg1_ctrl2_g_t ctrl2_g;
+  int32_t ret = 0;
 
   /* Check the Finite State Machine data rate constraints */
   ret =  asm330lhhxg1_fsm_enable_get(ctx, &fsm_enable);
+
   if (ret == 0)
   {
     if ((fsm_enable.fsm_enable_a.fsm1_en  |
@@ -637,191 +622,152 @@ int32_t asm330lhhxg1_gy_data_rate_set(const stmdev_ctx_t *ctx,
          fsm_enable.fsm_enable_b.fsm15_en |
          fsm_enable.fsm_enable_b.fsm16_en) == PROPERTY_ENABLE)
     {
-
       ret =  asm330lhhxg1_fsm_data_rate_get(ctx, &fsm_odr);
+
       if (ret == 0)
       {
         switch (fsm_odr)
         {
           case ASM330LHHXG1_ODR_FSM_12Hz5:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_12Hz5;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_FSM_26Hz:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_26Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_12Hz5)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_12Hz5)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_26Hz;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_FSM_52Hz:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_12Hz5)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_12Hz5)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_26Hz)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_26Hz)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_52Hz;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_FSM_104Hz:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_12Hz5)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_12Hz5)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_26Hz)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_26Hz)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_52Hz)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_52Hz)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
-            break;
-          default:
-            odr_gy = val;
             break;
         }
       }
     }
   }
-
   /* Check the Machine Learning Core data rate constraints */
   mlc_enable = PROPERTY_DISABLE;
+
   if (ret == 0)
   {
-    ret = asm330lhhxg1_mlc_get(ctx, &mlc_enable);
+    ret =  asm330lhhxg1_mlc_get(ctx, &mlc_enable);
+
     if (mlc_enable == PROPERTY_ENABLE)
     {
-
       ret += asm330lhhxg1_mlc_data_rate_get(ctx, &mlc_odr);
+
       if (ret == 0)
       {
         switch (mlc_odr)
         {
           case ASM330LHHXG1_ODR_PRGS_12Hz5:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_12Hz5;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_PRGS_26Hz:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_26Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_12Hz5)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_12Hz5)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_26Hz;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_PRGS_52Hz:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_12Hz5)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_12Hz5)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_52Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_26Hz)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_26Hz)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_52Hz;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
             break;
+
           case ASM330LHHXG1_ODR_PRGS_104Hz:
-
-            if (val == ASM330LHHXG1_GY_ODR_OFF)
+            if (odr_gy == ASM330LHHXG1_GY_ODR_OFF)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_12Hz5)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_12Hz5)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_26Hz)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_26Hz)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
-
             }
-            else if (val == ASM330LHHXG1_GY_ODR_52Hz)
+
+            else if (odr_gy == ASM330LHHXG1_GY_ODR_52Hz)
             {
               odr_gy = ASM330LHHXG1_GY_ODR_104Hz;
+            }
 
-            }
-            else
-            {
-              odr_gy = val;
-            }
-            break;
-          default:
-            odr_gy = val;
             break;
         }
       }
@@ -830,13 +776,17 @@ int32_t asm330lhhxg1_gy_data_rate_set(const stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_CTRL2_G, (uint8_t *)&ctrl2_g, 1);
+    ret = asm330lhhxg1_read_reg(ctx, ASM330LHHXG1_CTRL2_G,
+                                (uint8_t *)&ctrl2_g, 1);
   }
+
   if (ret == 0)
   {
     ctrl2_g.odr_g = (uint8_t)odr_gy;
-    ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_CTRL2_G, (uint8_t *)&ctrl2_g, 1);
+    ret = asm330lhhxg1_write_reg(ctx, ASM330LHHXG1_CTRL2_G,
+                                 (uint8_t *)&ctrl2_g, 1);
   }
+
   return ret;
 }
 
