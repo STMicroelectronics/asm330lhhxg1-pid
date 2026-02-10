@@ -3387,8 +3387,8 @@ int32_t asm330lhhxg1_sh_pass_through_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
 typedef enum
 {
-  ASM330LHHXG1_EXT_ON_INT2_PIN = 0,
-  ASM330LHHXG1_XL_GY_DRDY      = 1,
+  ASM330LHHXG1_EXT_ON_INT2_PIN = 1,
+  ASM330LHHXG1_XL_GY_DRDY      = 0,
 } asm330lhhxg1_start_config_t;
 int32_t asm330lhhxg1_sh_syncro_mode_set(const stmdev_ctx_t *ctx,
                                       asm330lhhxg1_start_config_t val);
