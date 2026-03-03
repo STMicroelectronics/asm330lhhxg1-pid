@@ -30,52 +30,13 @@ This directory contains the ASM330LHHXG1 component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section1" aria-hidden="true">
-<label for="collapse-section1" aria-hidden="true">V1.0.0 / 10-Oct-2023</label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true">V2.2.1 / 07-Oct-2025</label>
 <div>
 
 ## Main changes
 
-### First release
-
-- First official release [ref. DS v1.0]
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section2" aria-hidden="true">
-<label for="collapse-section2" aria-hidden="true">V2.0.0 / 19-Mar-2024</label>
-<div>
-
-## Main changes
-
-- Add "const" to ctx arg for all APIs
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section3" aria-hidden="true">
-<label for="collapse-section3" aria-hidden="true">V2.0.1 / 19-Jun-2024</label>
-<div>
-
-## Main changes
-
-- updated README.md file with tag reference and mdelay description
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section4" aria-hidden="true">
-<label for="collapse-section4" aria-hidden="true">V2.1.0 / 07-Jul-2025</label>
-<div>
-
-## Main changes
-
-- Fix driver formatting options
-- Added pointer to private data in stmdev_ctx_t
+- Add 'exit' label to fix build
 
 ##
 
@@ -95,13 +56,52 @@ This directory contains the ASM330LHHXG1 component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
-<label for="collapse-section6" aria-hidden="true">V2.2.1 / 07-Oct-2025</label>
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true">V2.1.0 / 07-Jul-2025</label>
 <div>
 
 ## Main changes
 
-- Add 'exit' label to fix build
+- Fix driver formatting options
+- Added pointer to private data in stmdev_ctx_t
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true">V2.0.1 / 19-Jun-2024</label>
+<div>
+
+## Main changes
+
+- updated README.md file with tag reference and mdelay description
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true">V2.0.0 / 19-Mar-2024</label>
+<div>
+
+## Main changes
+
+- Add "const" to ctx arg for all APIs
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true">V1.0.0 / 10-Oct-2023</label>
+<div>
+
+## Main changes
+
+### First release
+
+- First official release [ref. DS v1.0]
 
 ##
 
