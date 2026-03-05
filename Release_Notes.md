@@ -30,7 +30,37 @@ This directory contains the ASM330LHHXG1 component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true">
+<label for="collapse-section7" aria-hidden="true">V2.3.0 / 05-Mar-2026</label>
+<div>
+
+## Main changes
+
+- Re-order update history with most updated on top
+- Fix style
+- Fix shub_odr_t values, change 13Hz to 12Hz5
+- Change shub_pu_en_t values
+- Fix start_config_t values
+- Remove useless ln_pg_write in fsm_number_of_programs_set API
+- Fix default values for emb_func_odr_cfg_b in fsm_data_rate_set API
+- Change ln_pg_write_byte implementation to use ln_pg_write API
+- Change fsm_out_get return type
+- Fix den_xl_g_t values
+- Fix odr_t_batch_t values
+- Remove register union
+- Fix mag_soft_iron_set/get
+- Fix den_mark_axis_x/z_set_get APIs
+- Rename filter_settling_mask_set/get in drdy_mask_set/get
+- Fix odr_cal_reg_set/get API, change type uint8 to int8
+- Change type of xl_usr_offset_x/y/z_set/get APIs uint8 to int8
+- Move MLC_STATUS read to MLC_STATUS_MAINPAGE in all_sources_get API
+- Fix xl/gy_data_rate_set APIs
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section6" aria-hidden="true">
 <label for="collapse-section6" aria-hidden="true">V2.2.1 / 07-Oct-2025</label>
 <div>
 
