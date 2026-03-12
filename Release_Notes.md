@@ -29,8 +29,26 @@ This directory contains the ASM330LHHXG1 component drivers.
 ::: {.col-sm-12 .col-lg-8}
 # Update history
 
+
 ::: {.collapse}
-<input type="checkbox" id="collapse-section7" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section8" checked aria-hidden="true">
+<label for="collapse-section8" aria-hidden="true">V3.0.0 / 12-Mar-2026</label>
+<div>
+
+## Main changes
+
+- Fix hp_slope_xl_en_t LP_ODR_DIV_4 hex value
+- Remove outdated incorrect comment
+- Update sh_read_data_raw_get API to use a raw uint8_t buffer
+- Update fsm_out_get API to read raw uint8_t buffer.
+- Fix xl_hp_path_on_out_set/get API and hp_slope_xl_en_t enum
+- Change switch cases to use hex values
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
 <label for="collapse-section7" aria-hidden="true">V2.3.0 / 05-Mar-2026</label>
 <div>
 
