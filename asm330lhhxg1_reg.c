@@ -352,6 +352,9 @@ int32_t asm330lhhxg1_xl_data_rate_set(const stmdev_ctx_t *ctx,
             }
 
             break;
+
+          default:
+            break;
         }
       }
     }
@@ -5885,8 +5888,8 @@ int32_t asm330lhhxg1_fifo_data_level_get(const stmdev_ctx_t *ctx,
                                          uint16_t *val)
 {
   uint8_t reg[2];
-  asm330lhhxg1_fifo_status1_t *fifo_status1 = (asm330lhhxg1_fifo_status1_t *)&reg[0];
-  asm330lhhxg1_fifo_status2_t *fifo_status2 = (asm330lhhxg1_fifo_status2_t *)&reg[1];
+  const asm330lhhxg1_fifo_status1_t *fifo_status1 = (asm330lhhxg1_fifo_status1_t *)&reg[0];
+  const asm330lhhxg1_fifo_status2_t *fifo_status2 = (asm330lhhxg1_fifo_status2_t *)&reg[1];
   int32_t ret;
 
   /* read both FIFO_STATUS1 + FIFO_STATUS2 regs */
@@ -5961,7 +5964,7 @@ int32_t asm330lhhxg1_fifo_full_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 int32_t asm330lhhxg1_fifo_ovr_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 {
   uint8_t reg[2];
-  asm330lhhxg1_fifo_status2_t *fifo_status2 = (asm330lhhxg1_fifo_status2_t *)&reg[1];
+  const asm330lhhxg1_fifo_status2_t *fifo_status2 = (asm330lhhxg1_fifo_status2_t *)&reg[1];
   int32_t ret;
 
   /* read both FIFO_STATUS1 + FIFO_STATUS2 regs */
@@ -5985,7 +5988,7 @@ int32_t asm330lhhxg1_fifo_ovr_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 int32_t asm330lhhxg1_fifo_wtm_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 {
   uint8_t reg[2];
-  asm330lhhxg1_fifo_status2_t *fifo_status2 = (asm330lhhxg1_fifo_status2_t *)&reg[1];
+  const asm330lhhxg1_fifo_status2_t *fifo_status2 = (asm330lhhxg1_fifo_status2_t *)&reg[1];
   int32_t ret;
 
   /* read both FIFO_STATUS1 + FIFO_STATUS2 regs */
@@ -9005,7 +9008,7 @@ int32_t asm330lhhxg1_sh_write_mode_set(const stmdev_ctx_t *ctx,
 int32_t asm330lhhxg1_sh_write_mode_get(const stmdev_ctx_t *ctx,
                                        asm330lhhxg1_write_once_t *val)
 {
-  asm330lhhxg1_master_config_t master_config;
+  asm330lhhxg1_master_config_t master_config = {0};
   int32_t ret;
 
   ret = asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_SENSOR_HUB_BANK);
@@ -9017,6 +9020,11 @@ int32_t asm330lhhxg1_sh_write_mode_get(const stmdev_ctx_t *ctx,
   }
 
   ret += asm330lhhxg1_mem_bank_set(ctx, ASM330LHHXG1_USER_BANK);
+
+  if (ret != 0)
+  {
+    return ret;
+  }
 
   switch (master_config.write_once)
   {
