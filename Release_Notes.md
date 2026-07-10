@@ -31,7 +31,23 @@ This directory contains the ASM330LHHXG1 component drivers.
 
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section10" checked aria-hidden="true">
+<label for="collapse-section10" aria-hidden="true">V3.2.0 / 10-Jul-2026</label>
+<div>
+
+## Main changes
+
+- Fix build in xl/gy data_rate_set API
+- (origin/master) Add sign specification to bitmask
+- Fix MISRA issues
+- Fix MISRA issues, fix some hex values in switch statements
+- Add variable initialization in all APIs
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section9" aria-hidden="true">
 <label for="collapse-section9" aria-hidden="true">V3.1.0 / 18-Mar-2026</label>
 <div>
 
