@@ -2274,7 +2274,7 @@ int32_t asm330lhhxg1_fifo_temp_batch_get(const stmdev_ctx_t *ctx,
 
 typedef enum
 {
-  ASM330LHHXG1_NO_DECIMATION = 0,
+  ASM330LHHXG1_NOT_BATCHED   = 0,
   ASM330LHHXG1_DEC_1         = 1,
   ASM330LHHXG1_DEC_8         = 2,
   ASM330LHHXG1_DEC_32        = 3,
